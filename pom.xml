@@ -1,7 +1,33 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>com.s4n.technicalTest</groupId>
-  <artifactId>technical-test</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
-  <name>technical-test</name>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.s4n.technicalTest</groupId>
+	<artifactId>technical-test</artifactId>
+	<version>0.0.1-RC1</version>
+	<name>technical-test</name>
+
+	<properties>
+		<slf4j.version>1.7.30</slf4j.version>
+		<maven.compiler.target>1.8</maven.compiler.target>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<logback>1.1.7</logback>
+		<junit>4.12</junit>
+	</properties>
+
+	<dependencies>
+		<!-- LOGGING -->
+		<!-- https://mvnrepository.com/artifact/ch.qos.logback/logback-classic -->
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
+			<version>${logback}</version>
+		</dependency>
+		<!-- UNITARY TESTING -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>${junit}</version>
+		</dependency>
+	</dependencies>
 </project>
