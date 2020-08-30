@@ -19,10 +19,10 @@ public class FileDAOImpl implements FileDAO {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(FileDAOImpl.class);
 
-	public static final Integer MAX_OPERATION_BLOCKS = Config.getPropertie.andThen(Config.parseToInt)
-	    .apply("max.operation.blocks");
-	public static final Integer MAX_ORDERS_PER_DRON = Config.getPropertie.andThen(Config.parseToInt)
-	    .apply("max.orders.per.drone");
+//	public static final Integer MAX_OPERATION_BLOCKS = Config.getPropertie.andThen(Config.parseToInt)
+//	    .apply("max.operation.blocks");
+//	public static final Integer MAX_ORDERS_PER_DRON = Config.getPropertie.andThen(Config.parseToInt)
+//	    .apply("max.orders.per.drone");
 	public static final String FILES_PATH = Config.getPropertie.apply("files.path");
 
 	@Override
