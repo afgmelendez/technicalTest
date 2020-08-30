@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.Properties;
 import java.util.function.Function;
+import java.util.function.UnaryOperator;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,7 +22,7 @@ public class Config {
 
 	public static final Function<String, Integer> parseToInt = Integer::parseInt;
 	
-	public static final Function<String, String> getPropertie = key -> {
+	public static final UnaryOperator<String> getPropertie = key -> {
 		Properties properties = new Properties();
 		try (FileInputStream file = new FileInputStream(Utils.PROPERTIES_FILE_PATH);
 		    InputStreamReader reader = new InputStreamReader(file, StandardCharsets.UTF_8)) {
