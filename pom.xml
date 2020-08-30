@@ -2,6 +2,6 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.s4n.technicalTest</groupId>
   <artifactId>technical-test</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <version>0.0.1-RC1</version>
   <name>technical-test</name>
 </project>
