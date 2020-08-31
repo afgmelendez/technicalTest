@@ -1,68 +1,72 @@
 package com.s4n.technicalTest.app.service.impl;
 
-import java.util.function.Consumer;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.s4n.technicalTest.app.service.DronService;
-import com.s4n.technicalTest.app.utils.LinkedList;
+import com.s4n.technicalTest.app.utils.CardinalLinkedList;
 import com.s4n.technicalTest.app.utils.Utils;
 
 public class DronServiceImpl implements DronService {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(DronServiceImpl.class);
-	private LinkedList cardinalPoints;
+	private CardinalLinkedList cardinalPoints;
 	private int x = 0;
 	private int y = 0;
 
-	public DronServiceImpl(LinkedList linkedList) {
-		this.cardinalPoints = linkedList;
+	public DronServiceImpl(CardinalLinkedList cardinalLinkedList) {
+		this.cardinalPoints = cardinalLinkedList;
 	}
 
 	public void moveDron(String movement) {
 		LOGGER.trace(Utils.INSIDE_METHOD);
-		moveDron.accept(movement);
+		switch (movement) {
+		case Utils.D:
+			LOGGER.debug(Utils.MOVING_FROM_TO, cardinalPoints.getCurrent().getData(),
+			    cardinalPoints.getCurrent().getNext().getData());
+			cardinalPoints.setCurrent(cardinalPoints.getCurrent().getNext());
+			break;
+		case Utils.I:
+			LOGGER.debug(Utils.MOVING_FROM_TO, cardinalPoints.getCurrent().getData(),
+			    cardinalPoints.getCurrent().getPrevious().getData());
+			cardinalPoints.setCurrent(cardinalPoints.getCurrent().getPrevious());
+			break;
+		case Utils.A:
+			moveAhead(cardinalPoints.getCurrent().getData());
+			break;
+		default:
+			LOGGER.warn(Utils.NOT_A_VALID_OPERATION);
+			break;
+		}
 		LOGGER.trace(Utils.FINISHING_METHOD);
 	}
 
-	Consumer<String> moveAhead = cardinalPoint -> {
+	public void moveAhead(String cardinalPoint) {
 		switch (cardinalPoint) {
 		case Utils.N:
-			x = x + 1;
-			break;
-		case Utils.OR:
+			LOGGER.debug(Utils.MOVING_1_STEP_AHEAD_ON_DIRECTION, Utils.N);
 			y = y + 1;
 			break;
-		case Utils.S:
-			x = x - 1;
+		case Utils.OR:
+			LOGGER.debug(Utils.MOVING_1_STEP_AHEAD_ON_DIRECTION, Utils.OR);
+			x = x + 1;
 			break;
-		case Utils.OC:
+		case Utils.S:
+			LOGGER.debug(Utils.MOVING_1_STEP_AHEAD_ON_DIRECTION, Utils.S);
 			y = y - 1;
 			break;
+		case Utils.OC:
+			LOGGER.debug(Utils.MOVING_1_STEP_AHEAD_ON_DIRECTION, Utils.OC);
+			x = x - 1;
+			break;
 		default:
 			LOGGER.warn(Utils.NOT_A_VALID_OPERATION);
 			break;
 		}
-	};
+	}
 
-	Consumer<String> moveDron = movement -> {
-		switch (movement) {
-		case "D":
-			LOGGER.debug("Moving from {} to {}", cardinalPoints.getCurrent().data, cardinalPoints.getCurrent().next.data);
-			cardinalPoints.setCurrent(cardinalPoints.getCurrent().next);
-			break;
-		case "I":
-			LOGGER.debug("Moving from {} to {}", cardinalPoints.getCurrent().data, cardinalPoints.getCurrent().previous.data);
-			cardinalPoints.setCurrent(cardinalPoints.getCurrent().previous);
-			break;
-		case "A":
-			moveAhead.accept(cardinalPoints.getCurrent().data);
-			break;
-		default:
-			LOGGER.warn(Utils.NOT_A_VALID_OPERATION);
-			break;
-		}
-	};
+	public String printDeliveryAddress() {
+		return String.format("(%d,%d) dirección %s", x, y, cardinalPoints.getCurrent().getData());
+	}
 
 }
