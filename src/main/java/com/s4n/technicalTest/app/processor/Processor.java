@@ -23,9 +23,7 @@ public class Processor implements Runnable {
 	private FileDAO fileDAO;
 	public static final String OUTPUT_PATH = Config.getPropertie.apply("files.output.path");
 
-	/**
-	 * Constructor for Junit Teste
-	 */
+
 	public Processor(List<String> allMovements, int min, int max, String threadName,FileDAO fileDAO) {
 		this.allMovements = allMovements;
 		this.min = min;
