@@ -12,8 +12,13 @@ import com.s4n.technicalTest.app.service.impl.DronServiceImpl;
 import com.s4n.technicalTest.app.utils.CardinalLinkedList;
 import com.s4n.technicalTest.app.utils.Utils;
 
+/**
+ * Implementation class for the interface Runnable
+ * 
+ * @author andresgonzalez
+ *
+ */
 public class Processor implements Runnable {
-
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(Processor.class);
 	private List<String> allMovements;
@@ -23,8 +28,7 @@ public class Processor implements Runnable {
 	private FileDAO fileDAO;
 	public static final String OUTPUT_PATH = Config.getPropertie.apply("files.output.path");
 
-
-	public Processor(List<String> allMovements, int min, int max, String threadName,FileDAO fileDAO) {
+	public Processor(List<String> allMovements, int min, int max, String threadName, FileDAO fileDAO) {
 		this.allMovements = allMovements;
 		this.min = min;
 		this.max = max;
@@ -45,11 +49,22 @@ public class Processor implements Runnable {
 		});
 		LOGGER.trace(Utils.FINISHING_METHOD);
 	}
-	
+
+	/**
+	 * Method in charge or creating the path + filename
+	 * 
+	 * @return The path + filename
+	 */
 	private String getFileName() {
-		return OUTPUT_PATH + Thread.currentThread().getName()+Utils.TXT;
+		return OUTPUT_PATH + Thread.currentThread().getName() + Utils.TXT;
 	}
 
+	/**
+	 * Method in charge of processing the dron's movements
+	 * 
+	 * @param movements The movement list for the dron
+	 * @param dron      The Dron
+	 */
 	private void processDron(List<String> movements, DronService dron) {
 		movements.forEach(movement -> dron.moveDron(movement));
 		String dronDeliveryAddress = dron.printDeliveryAddress();

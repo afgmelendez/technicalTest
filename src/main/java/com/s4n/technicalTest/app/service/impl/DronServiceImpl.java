@@ -8,6 +8,12 @@ import com.s4n.technicalTest.app.service.DronService;
 import com.s4n.technicalTest.app.utils.CardinalLinkedList;
 import com.s4n.technicalTest.app.utils.Utils;
 
+/**
+ * Implementation class for the interface DronService
+ * 
+ * @author andresgonzalez
+ *
+ */
 public class DronServiceImpl implements DronService {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(DronServiceImpl.class);
@@ -21,6 +27,7 @@ public class DronServiceImpl implements DronService {
 		this.cardinalPoints = cardinalLinkedList;
 	}
 
+	@Override
 	public void moveDron(String movement) {
 		LOGGER.trace(Utils.INSIDE_METHOD);
 		switch (movement) {
@@ -44,7 +51,13 @@ public class DronServiceImpl implements DronService {
 		LOGGER.trace(Utils.FINISHING_METHOD);
 	}
 
-	public void moveAhead(String cardinalPoint) {
+	/**
+	 * Method in charge of making the movement on the correct axys
+	 * 
+	 * @param cardinalPoint The cardinal point that tells the method in which axys
+	 *                      to make the move
+	 */
+	private void moveAhead(String cardinalPoint) {
 		switch (cardinalPoint) {
 		case Utils.N:
 			LOGGER.debug(Utils.MOVING_1_STEP_AHEAD_ON_DIRECTION, Utils.N);
@@ -68,6 +81,7 @@ public class DronServiceImpl implements DronService {
 		}
 	}
 
+	@Override
 	public String printDeliveryAddress() {
 		String response;
 		if (x > MAX_OPERATION_BLOCKS || y > MAX_OPERATION_BLOCKS) {

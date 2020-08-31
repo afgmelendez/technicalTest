@@ -15,6 +15,12 @@ import com.s4n.technicalTest.app.config.Config;
 import com.s4n.technicalTest.app.processor.Processor;
 import com.s4n.technicalTest.app.utils.Utils;
 
+/**
+ * Main class
+ * 
+ * @author andresgonzalez
+ *
+ */
 public class MainClass {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(MainClass.class);
@@ -28,6 +34,11 @@ public class MainClass {
 	private static ThreadPoolExecutor threadPool = new ThreadPoolExecutor(0, threadPoolMaxThreads, 0, TimeUnit.SECONDS,
 	    new SynchronousQueue<Runnable>());
 
+	/**
+	 * Main Method
+	 * 
+	 * @param args The Commmand-Line arguments (Not used)
+	 */
 	public static void main(String[] args) {
 
 		LOGGER.info("******* LAUNCHING S4N TECHNICAL TEST ********");
@@ -42,7 +53,7 @@ public class MainClass {
 		List<String> allMovements = fileDAO.readFile();
 		while (max <= maxLines && max <= allMovements.size()) {
 			String threadName = Utils.FILENAME + String.valueOf(dronNumber);
-			Processor processor = new Processor(allMovements, min, max, threadName,fileDAO);
+			Processor processor = new Processor(allMovements, min, max, threadName, fileDAO);
 			threadPool.submit(processor);
 			min = min + MAX_ORDERS_PER_DRON;
 			max = max + MAX_ORDERS_PER_DRON;
