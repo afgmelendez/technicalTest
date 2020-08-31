@@ -1,6 +1,7 @@
 package com.s4n.technicalTest.app;
 
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.not;
 import static org.junit.Assert.assertThat;
 
 import java.util.Arrays;
@@ -11,16 +12,16 @@ import org.slf4j.LoggerFactory;
 
 import com.s4n.technicalTest.app.DAO.FileDAO;
 import com.s4n.technicalTest.app.DAO.impl.FileDAOImpl;
+import com.s4n.technicalTest.app.processor.Processor;
 import com.s4n.technicalTest.app.service.DronService;
 import com.s4n.technicalTest.app.service.impl.DronServiceImpl;
-import com.s4n.technicalTest.app.utils.LinkedList;
-
-
+import com.s4n.technicalTest.app.utils.CardinalLinkedList;
+import com.s4n.technicalTest.app.utils.Utils;
 
 public class Tests {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(Tests.class);
-	
+
 	@Test
 	public void testReadFile() {
 		LOGGER.debug("*** READ CSV TEST START ***");
@@ -33,27 +34,99 @@ public class Tests {
 		assertThat(expected, is(actual));
 		LOGGER.debug("*** READ CSV TEST END ***");
 	}
-	
+
 	@Test
 	public void testMoveCardinalPoint() {
 		LOGGER.debug("*** MOVE CARDINAL POINT TEST START ***");
-		LinkedList cardinalPoints = new LinkedList();
+		CardinalLinkedList cardinalPoints = new CardinalLinkedList();
 		DronService dron = new DronServiceImpl(cardinalPoints);
-		LOGGER.debug("Starting Cardinal Point- {}", cardinalPoints.getCurrent().data);
+		LOGGER.debug("Starting Cardinal Point- {}", cardinalPoints.getCurrent().getData());
 		dron.moveDron("D");
-		LOGGER.debug("Cardinal Point Or - {}", cardinalPoints.getCurrent().data);
-		assertThat("Or",is(cardinalPoints.getCurrent().data));
+		LOGGER.debug("Cardinal Point Or - {}", cardinalPoints.getCurrent().getData());
+		assertThat(Utils.OR, is(cardinalPoints.getCurrent().getData()));
 		dron.moveDron("D");
-		LOGGER.debug("Cardinal Point S - {}", cardinalPoints.getCurrent().data);
-		assertThat("S",is(cardinalPoints.getCurrent().data));
+		LOGGER.debug("Cardinal Point S - {}", cardinalPoints.getCurrent().getData());
+		assertThat(Utils.S, is(cardinalPoints.getCurrent().getData()));
 		dron.moveDron("D");
-		LOGGER.debug("Cardinal Point Oc - {}", cardinalPoints.getCurrent().data);
-		assertThat("Oc",is(cardinalPoints.getCurrent().data));
+		LOGGER.debug("Cardinal Point Oc - {}", cardinalPoints.getCurrent().getData());
+		assertThat(Utils.OC, is(cardinalPoints.getCurrent().getData()));
 		dron.moveDron("D");
-		LOGGER.debug("Cardinal Point N - {}", cardinalPoints.getCurrent().data);
-		assertThat("N",is(cardinalPoints.getCurrent().data));
+		LOGGER.debug("Cardinal Point N - {}", cardinalPoints.getCurrent().getData());
+		assertThat(Utils.N, is(cardinalPoints.getCurrent().getData()));
 		LOGGER.debug("It did a whole round!!");
 		LOGGER.debug("*** MOVE CARDINAL POINT TEST END ***");
+	}
+	
+	@Test
+	public void firstRouteTest() {
+		LOGGER.debug("*** FIRST MOVEMENT TEST START ***");
+		Processor processor = new Processor();
+		CardinalLinkedList cardinalPoints = new CardinalLinkedList();
+		DronService dron = new DronServiceImpl(cardinalPoints);
+		List<String> movements = Arrays.asList("A","A","A","A","I","A","A");
+		processor.processDron(movements, dron);
+		assertThat("(-2,4) dirección Occidente",is(dron.printDeliveryAddress()));
+		LOGGER.debug("*** FIRST MOVEMENT TEST END ***");
+	}
+	
+	@Test
+	public void firstRouteWrongTest() {
+		LOGGER.debug("*** FIRST MOVEMENT WRONG TEST START ***");
+		Processor processor = new Processor();
+		CardinalLinkedList cardinalPoints = new CardinalLinkedList();
+		DronService dron = new DronServiceImpl(cardinalPoints);
+		List<String> movements = Arrays.asList("A","A","A","A","I","A","A");
+		processor.processDron(movements, dron);
+		assertThat("(-2,4) dirección Norte",is(not(dron.printDeliveryAddress())));
+		LOGGER.debug("*** FIRST MOVEMENT WRONG TEST END ***");
+	}
+	
+	@Test
+	public void secondRouteTest() {
+		LOGGER.debug("*** SECOND MOVEMENT TEST START ***");
+		Processor processor = new Processor();
+		CardinalLinkedList cardinalPoints = new CardinalLinkedList();
+		DronService dron = new DronServiceImpl(cardinalPoints);
+		List<String> movements = Arrays.asList("A","A","A","A","I","A","A","D","D","D","A","I","A","D");
+		processor.processDron(movements, dron);
+		assertThat("(-1,3) dirección Sur",is(dron.printDeliveryAddress()));
+		LOGGER.debug("*** SECOND MOVEMENT TEST END ***");
+	}
+	
+	@Test
+	public void secondRouteWrongTest() {
+		LOGGER.debug("*** SECOND MOVEMENT WRONG TEST START ***");
+		Processor processor = new Processor();
+		CardinalLinkedList cardinalPoints = new CardinalLinkedList();
+		DronService dron = new DronServiceImpl(cardinalPoints);
+		List<String> movements = Arrays.asList("A","A","A","A","I","A","A","D","D","D","A","I","A","D");
+		processor.processDron(movements, dron);
+		assertThat("(-3,3) dirección Sur",is(not(dron.printDeliveryAddress())));
+		LOGGER.debug("*** SECOND MOVEMENT WRONG TEST END ***");
+	}
+	
+	@Test
+	public void thirdRouteTest() {
+		LOGGER.debug("*** THIRD MOVEMENT TEST START ***");
+		Processor processor = new Processor();
+		CardinalLinkedList cardinalPoints = new CardinalLinkedList();
+		DronService dron = new DronServiceImpl(cardinalPoints);
+		List<String> movements = Arrays.asList("A","A","A","A","I","A","A","D","D","D","A","I","A","D","A","A","I","A","D","A","D");
+		processor.processDron(movements, dron);
+		assertThat("(0,0) dirección Occidente",is(dron.printDeliveryAddress()));
+		LOGGER.debug("*** THIRD MOVEMENT TEST END ***");
+	}
+	
+	@Test
+	public void thirdRouteWrongTest() {
+		LOGGER.debug("*** THIRD MOVEMENT WRONG TEST START ***");
+		Processor processor = new Processor();
+		CardinalLinkedList cardinalPoints = new CardinalLinkedList();
+		DronService dron = new DronServiceImpl(cardinalPoints);
+		List<String> movements = Arrays.asList("A","A","A","A","I","A","A","D","D","D","A","I","A","D","A","A","I","A","D","A","D");
+		processor.processDron(movements, dron);
+		assertThat("(-4,2) dirección Oriente",is(not(dron.printDeliveryAddress())));
+		LOGGER.debug("*** THID MOVEMENT WRONG TEST END ***");
 	}
 
 }

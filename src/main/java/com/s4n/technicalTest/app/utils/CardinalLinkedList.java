@@ -1,6 +1,6 @@
 package com.s4n.technicalTest.app.utils;
 
-public class LinkedList {
+public class CardinalLinkedList {
 
 	// I create the four cardinal point's nodes
 	private Node nodeN = new Node(Utils.N);
@@ -10,15 +10,15 @@ public class LinkedList {
 	private Node current;
 
 	// I align every node so it has this structure ...Oc,N,Or,S,Oc,N,Or....
-	public LinkedList() {
-		this.nodeN.next = nodeOr;
-		this.nodeN.previous = nodeOc;
-		this.nodeOr.next = nodeS;
-		this.nodeOr.previous = nodeN;
-		this.nodeS.next = nodeOc;
-		this.nodeS.previous = nodeOr;
-		this.nodeOc.next = nodeN;
-		this.nodeOc.previous = nodeS;
+	public CardinalLinkedList() {
+		this.nodeN.setNext(nodeOr);
+		this.nodeN.setPrevious(nodeOc);
+		this.nodeOr.setNext(nodeS);
+		this.nodeOr.setPrevious(nodeN);
+		this.nodeS.setNext(nodeOc);
+		this.nodeS.setPrevious(nodeOr);
+		this.nodeOc.setNext(nodeN);
+		this.nodeOc.setPrevious(nodeS);
 		this.current = nodeN;
 	}
 
