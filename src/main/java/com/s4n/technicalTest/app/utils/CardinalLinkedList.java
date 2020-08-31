@@ -1,5 +1,11 @@
 package com.s4n.technicalTest.app.utils;
 
+/**
+ * This is a class that represents a double linked list
+ * 
+ * @author andresgonzalez
+ *
+ */
 public class CardinalLinkedList {
 
 	// I create the four cardinal point's nodes
@@ -9,7 +15,10 @@ public class CardinalLinkedList {
 	private Node nodeOc = new Node(Utils.OC);
 	private Node current;
 
-	// I align every node so it has this structure ...Oc,N,Or,S,Oc,N,Or....
+	/**
+	 * Public constructor that creates de double linked list structure
+	 * (...Oc,N,Or,S,Oc,N,Or....)
+	 */
 	public CardinalLinkedList() {
 		this.nodeN.setNext(nodeOr);
 		this.nodeN.setPrevious(nodeOc);
