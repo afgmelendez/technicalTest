@@ -72,8 +72,6 @@ public class DronServiceImpl implements DronService {
 		String response;
 		if (x > MAX_OPERATION_BLOCKS || y > MAX_OPERATION_BLOCKS) {
 			response = "Delivery is outside of our delivery range, returning to the restaurant";
-			x=0;
-			y=0;
 		} else {
 			response = String.format("(%d,%d) dirección %s", x, y, cardinalPoints.getCurrent().getData());
 		}
