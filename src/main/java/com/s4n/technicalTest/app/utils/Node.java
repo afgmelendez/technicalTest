@@ -1,11 +1,22 @@
 package com.s4n.technicalTest.app.utils;
 
+/**
+ * Class node for the double linked list
+ * 
+ * @author andresgonzalez
+ *
+ */
 public class Node {
 
 	private String data;
 	private Node next;
 	private Node previous;
-	
+
+	/**
+	 * Node public constructos which sets the node's data
+	 * 
+	 * @param data
+	 */
 	public Node(String data) {
 		this.data = data;
 	}
@@ -51,5 +62,5 @@ public class Node {
 	public void setPrevious(Node previous) {
 		this.previous = previous;
 	}
-	
+
 }
