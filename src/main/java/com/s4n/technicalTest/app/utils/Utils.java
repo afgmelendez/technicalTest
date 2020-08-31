@@ -15,6 +15,12 @@ public class Utils {
 	public static final String OR = "Oriente";
 	public static final String S = "Sur";
 	public static final String OC = "Occidente";
+	//FILES
+	public static final String FILENAME = "in";
+	public static final String REPORTE_DE_ENTREGAS = "== Reporte de entregas ==";
+	public static final String FILE_ALREADY_EXISTS = "File already exists we continue writting";
+	public static final String CREATING_FILE = "Creating file {}";
+	public static final String TXT = ".txt";
 	
 	// Movements
 	public static final String A = "A";
